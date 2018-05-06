@@ -1,0 +1,29 @@
+(define
+  (square x)
+  (* x x)
+)
+
+(define
+  (cube x)
+  (* x x x)
+)
+
+(define
+  (improve y x)
+  (/ (+ (/ x (square y)) (* 2 y)) 3)
+)
+
+(define
+  (tolerance y x)
+  (and (< (abs (- (cube y) x)) .00001)
+       (< (abs (/ (- (improve y x) y) y)) .00001)
+  )
+)
+
+(define
+  (root y x)
+  (if (tolerance y x)
+      y
+      (root (improve y x) x)
+  )
+)
