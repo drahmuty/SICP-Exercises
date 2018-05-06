@@ -1,0 +1,17 @@
+(define 
+  (square x) 
+  (* x x)
+)
+
+(define
+  (sumsquares x y)
+  (+ (square x) (square y))
+)
+
+(define
+  (f a b c)
+  (cond ((and (>= a b) (>= b c)) (sumsquares a b))
+        ((and (>= b a) (>= c a)) (sumsquares b c))
+        ((and (>= a b) (>= c b)) (sumsquares a c))
+  )
+)
