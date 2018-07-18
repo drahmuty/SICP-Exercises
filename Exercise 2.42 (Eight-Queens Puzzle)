@@ -14,19 +14,32 @@
       nil
       (cons low (enumerate-interval (+ low 1) high))))
 
-(define empty-board ())
+(define empty-board nil)
 
 (define (adjoin-position x y z)
-  (cons (list y x) z))
+  (cons (list x y) z))
 
 (define (queens board-size)
-  (define (queen-cols k)
+  (define (queen-cols k)  
     (if (= k 0)
         (list empty-board)
+        (filter
+         (lambda (positions) (safe? k positions))
          (flatmap
           (lambda (rest-of-queens)
             (map (lambda (new-row)
                    (adjoin-position new-row k rest-of-queens))
                  (enumerate-interval 1 board-size)))
-          (queen-cols (- k 1)))))
+          (queen-cols (- k 1))))))
   (queen-cols board-size))
+
+(define (safe? k x)
+  (define (iter new rest count)
+    (if (null? (cdr rest))
+        #t
+        (if (or (= (caar new) (caadr rest))
+                (= (caar new) (+ (caadr rest) count))
+                (= (caar new) (- (caadr rest) count)))
+            #f
+            (iter new (cdr rest) (+ count 1)))))
+  (iter x x 1))
