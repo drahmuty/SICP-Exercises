@@ -1,0 +1,12 @@
+(define (square x)
+  (* x x))
+
+(define (exp b n)
+  (fast-iter 1 b n))
+
+(define (fast-iter a b n)
+  (if (= n 0)
+      a
+      (if (even? n)
+          (fast-iter (* a b) b (/ n 2))
+          (* b (fast-iter a b (- n 1))))))
