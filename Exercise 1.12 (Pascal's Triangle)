@@ -1,0 +1,6 @@
+(define (pascal r c)
+  (cond ((or (and (= r 1) (= c 1))
+             (and (= r 2) (or (= c 1) (= c 2)))) 1)
+        ((or (> c r) 
+             (or (< r 0) (< c 0))) 0)
+           (else (+ (pascal (- r 1) (- c 1)) (pascal (- r 1) c)))))
