@@ -1,0 +1,15 @@
+(define (addend x)
+  (cadr x))
+
+(define (augend x)
+  (if (null? (cdddr x))
+      (caddr x)
+      (make-sum (caddr x) (augend (cdr x)))))
+
+(define (multiplier x)
+  (cadr x))
+
+(define (multiplicand x)
+  (if (null? (cdddr x))
+      (caddr x)
+      (make-product (caddr x) (multiplicand (cdr x)))))
