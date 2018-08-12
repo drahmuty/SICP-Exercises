@@ -17,5 +17,6 @@
         (else (intersection-set (cdr set1) set2))))
 
 (define (inter-all set1 set2)
-  (filter (lambda (x) (element-of-set? x (intersection-set set1 set2))) 
-          (union-set set1 set2)))
+  (let ((y (intersection-set set1 set2)))
+    (filter (lambda (x) (element-of-set? x y))
+            (union-set set1 set2))))
